@@ -12,10 +12,14 @@ spec:
       rego: |
         package k8sallowedrepos
 
-        violation[{"msg": msg, "details": {"missing_repos": missing}}] {
+        violation[{"msg": msg}] {
           container := input.review.object.spec.containers[_]
-          satisfied := [good | repo := input.parameters.repos[_] ; good := startswith(container.image, repo)]
-          not any(satisfied)
-          missing := {container.image | not startswith(container.image, repo)}
-          msg := sprintf("Disallowed repo for image: %v", [missing])
+          not startswith_any(container.image, input.parameters.repos)
+          msg := sprintf("Disallowed repo for image: %v", [container.image])
+        }
+
+        # Helper function to check if the image starts with any allowed repo
+        startswith_any(image, repos) {
+          repo := repos[_]
+          startswith(image, repo)
         }
