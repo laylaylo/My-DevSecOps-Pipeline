@@ -72,6 +72,9 @@ jobs:
       run: |
         gcloud container clusters get-credentials devsecops-pipeline-cluster-1 --zone us-central1-c --project ${{ secrets.GCP_PROJECT_ID }}
 
+    - name: Get cluster info
+      run: kubectl cluster-info
+  
     - name: Install OPA Gatekeeper
       run: |
         kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.14.0/deploy/gatekeeper.yaml
