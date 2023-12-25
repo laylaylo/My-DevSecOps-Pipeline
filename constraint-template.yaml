@@ -11,8 +11,8 @@ spec:
       names:
         kind: K8sAllowedRepos
       validation:
-        # Define schema for the parameters, if any
         openAPIV3Schema:
+          type: object
           properties:
             repos:
               type: array
