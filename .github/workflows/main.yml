@@ -33,7 +33,7 @@ jobs:
         pytest
 
     - name: Static Application Security Testing with CodeQL
-      uses: github/codeql-action/analyze@v1
+      uses: github/codeql-action/analyze@v2
 
     - name: Build Docker Image
       run: docker build -t gcr.io/luminous-bazaar-401220/flask-app:latest .
