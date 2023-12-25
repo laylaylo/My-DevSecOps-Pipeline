@@ -70,7 +70,7 @@ jobs:
     
     - name: Configure kubectl
       run: |
-        gcloud container clusters get-credentials devsecops-cluster-1 --zone us-central1 --project ${{ secrets.GCP_PROJECT_ID }}
+        gcloud container clusters get-credentials devsecops-pipeline-cluster-1 --zone us-central1-c --project ${{ secrets.GCP_PROJECT_ID }}
 
     - name: Install OPA Gatekeeper
       run: |
