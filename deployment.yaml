@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: flask-app-container
-        image: docker.io/luminous-bazaar-401220/flask-app:latest 
+        image: gcr.io/luminous-bazaar-401220/flask-app:latest 
         ports:
         - containerPort: 5000  # The default port flask app runs on
