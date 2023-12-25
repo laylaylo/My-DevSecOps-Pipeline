@@ -5,7 +5,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-api_key = "12345-FAKE-API-KEY-67890"
+API_KEY = "12345-FAKE-API-KEY-67890"
 
 @app.route("/")
 def index():
