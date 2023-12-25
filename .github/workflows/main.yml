@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  devOpsSec:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -85,4 +85,12 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: kubectl apply -f deployment.yaml
+
+    - name: Apply OPA Gatekeeper Constraint Template
+      run: |
+        kubectl apply -f constraint-template.yaml
+
+    - name: Apply OPA Gatekeeper Constraint
+      run: |
+        kubectl apply -f gatekeeper-constraint.yaml
     
