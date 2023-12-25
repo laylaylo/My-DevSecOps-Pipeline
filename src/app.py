@@ -1,10 +1,11 @@
 """Module docstring: Description of what this module does."""
 
-import xml.etree.ElementTree
 import socket
 from flask import Flask, render_template
 
 app = Flask(__name__)
+
+api_key = "12345-FAKE-API-KEY-67890"
 
 @app.route("/")
 def index():
