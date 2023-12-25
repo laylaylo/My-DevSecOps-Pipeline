@@ -78,13 +78,10 @@ jobs:
     - name: Install OPA Gatekeeper
       run: |
         kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.14.0/deploy/gatekeeper.yaml
-        
+
     - name: Verify Gatekeeper Installation
       run: |
         kubectl get pods -n gatekeeper-system
-
-    - name: Deploy to Kubernetes
-      run: kubectl apply -f deployment.yaml
 
     - name: Apply OPA Gatekeeper Constraint Template
       run: |
@@ -97,4 +94,6 @@ jobs:
     - name: Verify Gatekeeper Constraint
       run: |
         kubectl get K8sAllowedRepos allowed-repos -o yaml
-    
+
+    - name: Deploy to Kubernetes
+      run: kubectl apply -f deployment.yaml
