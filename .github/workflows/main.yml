@@ -40,9 +40,9 @@ jobs:
 
     - name: Push Docker Image to Google Artifact Registry
       env:
-        GCR_JSON_KEY: ${{ secrets.GCR_KEY }}
+        GCP_JSON_KEY: ${{ secrets.GCP_KEY }}
       run: |
-        echo "$GCR_JSON_KEY" | docker login -u _json_key --password-stdin https://gcr.io
+        echo "$GCP_JSON_KEY" | docker login -u _json_key --password-stdin https://gcr.io
         docker push gcr.io/luminous-bazaar-401220/flask-app:latest
 
 
