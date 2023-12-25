@@ -9,4 +9,4 @@ spec:
         kinds: ["Pod"]
   parameters:
     repos:
-      - "ghcr.io"  # Allow only GitHub Container Registry --> will give OPA Gatekeeper error since Google Cloud is being used
+      - "gcr.io"  # Allow only Google Cloud Container Registry
