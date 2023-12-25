@@ -19,8 +19,3 @@ spec:
           missing := {container.image | not startswith(container.image, repo)}
           msg := sprintf("Disallowed repo for image: %v", [missing])
         }
-parameters:
-  repos:
-    type: array
-    items:
-      type: string
