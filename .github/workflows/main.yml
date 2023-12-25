@@ -36,11 +36,16 @@ jobs:
     - name: Static Application Security Testing with CodeQL
       uses: github/codeql-action/analyze@v1
 
-    - name: Build and push Docker image
+    - name: Build Docker Image
+      run: docker build -t gcr.io/luminous-bazaar-401220/flask-app:latest .
+
+    - name: Push Docker Image to Google Artifact Registry
+      env:
+        GCR_JSON_KEY: ${{ secrets.GCR_KEY }}
       run: |
-        docker build -t gcr.io/my-cloud-project/my-app:latest .
-        echo ${{ secrets.GCR_KEY }} | docker login -u _json_key --password-stdin https://gcr.io
-        docker push gcr.io/my-cloud-project/my-app:latest
+        echo "$GCR_JSON_KEY" | docker login -u _json_key --password-stdin https://gcr.io
+        docker push gcr.io/luminous-bazaar-401220/flask-app:latest
+
 
     - name: Scan the Docker image with Trivy
       uses: aquasecurity/trivy-action@master
