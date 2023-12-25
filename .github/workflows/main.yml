@@ -55,14 +55,18 @@ jobs:
         image-ref: 'gcr.io/${{ secrets.GCP_PROJECT_ID }}/flask-app:latest'
         format: 'table'
         exit-code: '1'
-        
+
+    - name: Authenticate with Google Cloud
+      uses: google-github-actions/auth@v0.4.0
+      with:
+        credentials_json: ${{ secrets.GCP_K8S_KEY }} 
+    
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
       with:
         version: '>= 363.0.0'
         project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.GCP_K8S_KEY }}
-        export_default_credentials: true
+        install_components: "kubectl" 
     
     - name: Configure kubectl
       run: |
