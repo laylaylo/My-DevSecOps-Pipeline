@@ -9,4 +9,4 @@ spec:
         kinds: ["Pod"]
   parameters:
     repos:
-      - "gcr.io"  # Allow only Google Cloud Container Registry
+      - "ghcr.io/"  # Allow only GitHub for error (Google Cloud Container Registry for correctness)
