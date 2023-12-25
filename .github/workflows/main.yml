@@ -100,7 +100,7 @@ jobs:
 
     - name: Check Deployment Status
       run: |
-        if kubectl rollout status deployment/my-deployment -n my-namespace; then
+        if kubectl rollout status deployment/flask-app-deployment; then
           echo "Deployment succeeded"
         else
           echo "Deployment failed" >&2
