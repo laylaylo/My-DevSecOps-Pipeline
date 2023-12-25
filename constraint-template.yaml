@@ -7,9 +7,6 @@ spec:
     spec:
       names:
         kind: K8sAllowedRepos
-        listKind: K8sAllowedReposList
-        plural: k8sallowedrepos
-        singular: k8sallowedrepos
   targets:
     - target: admission.k8s.gatekeeper.sh
       rego: |
@@ -21,3 +18,9 @@ spec:
           not any(satisfied)
           missing := {container.image | not startswith(container.image, repo)}
           msg := sprintf("Disallowed repo for image: %v", [missing])
+        }
+parameters:
+  repos:
+    type: array
+    items:
+      type: string
