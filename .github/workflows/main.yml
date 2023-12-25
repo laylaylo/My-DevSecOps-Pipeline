@@ -36,22 +36,33 @@ jobs:
     #  uses: github/codeql-action/analyze@v2
 
     - name: Build Docker Image
-      run: docker build -t gcr.io/luminous-bazaar-401220/flask-app:latest .
+      run: docker build -t gcr.io/${secrets.GCP_PROJECT_ID}/flask-app:latest .
 
     - name: Push Docker Image to Google Artifact Registry
       env:
         GCP_JSON_KEY: ${{ secrets.GCP_KEY }}
       run: |
         echo "$GCP_JSON_KEY" | docker login -u _json_key --password-stdin https://gcr.io
-        docker push gcr.io/luminous-bazaar-401220/flask-app:latest
+        docker push gcr.io/${secrets.GCP_PROJECT_ID}/flask-app:latest
 
 
     - name: Scan the Docker image with Trivy
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: 'gcr.io/luminous-bazaar-401220/flask-app:latest'
+        image-ref: 'gcr.io/${secrets.GCP_PROJECT_ID}/flask-app:latest'
         format: 'table'
         exit-code: '1'
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_K8S_KEY }}
+        export_default_credentials: true
+    
+    - name: Configure kubectl
+      run: |
+        gcloud container clusters get-credentials devsecops-cluster-1 --zone us-central1 --project ${{ secrets.GCP_PROJECT_ID }}
 
     - name: Deploy to Kubernetes
       run: kubectl apply -f deployment.yaml
