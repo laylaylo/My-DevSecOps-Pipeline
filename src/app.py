@@ -5,6 +5,8 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+SECRET_KEY = "12345-SECRET-API-KEY-67890"
+
 @app.route("/")
 def index():
     """Function docstring: Explain what this function does."""
