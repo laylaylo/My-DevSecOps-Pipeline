@@ -2,6 +2,9 @@ apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
   name: k8sallowedrepos
+  annotations:
+    metadata.gatekeeper.sh/title: "Allowed Repositories"
+    metadata.gatekeeper.sh/version: 1.0.1
 spec:
   crd:
     spec:
@@ -22,12 +25,18 @@ spec:
 
         violation[{"msg": msg}] {
           container := input.review.object.spec.containers[_]
-          not startswith_any(container.image, input.parameters.repos)
-          msg := sprintf("Disallowed repo for image: %v", [container.image])
+          not strings.any_prefix_match(container.image, input.parameters.repos)
+          msg := sprintf("container <%v> has an invalid image repo <%v>, allowed repos are %v", [container.name, container.image, input.parameters.repos])
         }
 
-        # Helper function to check if the image starts with any allowed repo
-        startswith_any(image, repos) {
-          repo := repos[_]
-          startswith(image, repo)
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.initContainers[_]
+          not strings.any_prefix_match(container.image, input.parameters.repos)
+          msg := sprintf("initContainer <%v> has an invalid image repo <%v>, allowed repos are %v", [container.name, container.image, input.parameters.repos])
+        }
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.ephemeralContainers[_]
+          not strings.any_prefix_match(container.image, input.parameters.repos)
+          msg := sprintf("ephemeralContainer <%v> has an invalid image repo <%v>, allowed repos are %v", [container.name, container.image, input.parameters.repos])
         }
