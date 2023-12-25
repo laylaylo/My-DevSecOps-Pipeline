@@ -11,4 +11,4 @@ spec:
       - "default"
   parameters:
     repos:
-      - "ghcr.io/"  # Allow only GitHub for error (Google Cloud Container Registry for correctness)
+      - "gcr.io/"  # Allow only GitHub for error (Google Cloud Container Registry for correctness)
