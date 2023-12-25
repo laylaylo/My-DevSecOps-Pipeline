@@ -7,6 +7,8 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
+    namespaces:
+      - "default"
   parameters:
     repos:
       - "ghcr.io/"  # Allow only GitHub for error (Google Cloud Container Registry for correctness)
