@@ -51,10 +51,8 @@ jobs:
 
     - name: Scan the Docker image with Trivy
       uses: aquasecurity/trivy-action@master
-      env:
-        GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }} 
       with:
-        image-ref: 'gcr.io/$GCP_PROJECT_ID/flask-app:latest'
+        image-ref: 'gcr.io/${{ secrets.GCP_PROJECT_ID }}/flask-app:latest'
         format: 'table'
         exit-code: '1'
         
