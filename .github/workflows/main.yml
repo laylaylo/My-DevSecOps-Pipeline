@@ -22,7 +22,7 @@ jobs:
     - name: Code linting with Pylint
       run: |
         pip install pylint
-        pylint *.py
+        pylint src/*.py
 
     - name: Unit testing with pytest
       run: |
