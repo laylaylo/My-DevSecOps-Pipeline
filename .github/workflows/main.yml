@@ -19,10 +19,6 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    # Step for building the application
-    - name: Build
-      run: npm build # Replace with your project's build command
-
     - name: Code linting with Pylint
       run: |
         pip install pylint
