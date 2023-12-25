@@ -85,11 +85,11 @@ jobs:
 
     - name: Apply OPA Gatekeeper Constraint Template
       run: |
-        kubectl get constraint-template
+        kubectl create -f constraint-template.yaml
 
     - name: Apply OPA Gatekeeper Constraint
       run: |
-        kubectl get gatekeeper-constraint
+        kubectl create -f gatekeeper-constraint.yaml
 
     - name: Verify Gatekeeper Constraint
       run: |
